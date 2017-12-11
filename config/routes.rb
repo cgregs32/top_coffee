@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   namespace :api do
-    resources :coffee, except: [:show]
+    resources :coffees, except: [:show]
   end
 
   get '*other', to: 'static#index'

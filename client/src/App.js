@@ -8,24 +8,13 @@ class App extends Component {
 
 
   componentDidMount() {
-    this.fetchCoffee();
-  }
-
-  fetchCoffee = () => {
-    axios({
-      method: 'get',
-      url: '/api/coffee'
-    }).then(res =>{
-      this.setState({ coffees: res.data })
-    }).catch(err => {
-      console.log(err.data)
-    });
+    axios.get('/api/coffees').then(res => this.setState({coffees: res.data}));
   }
 
   createCoffee = (coffee) =>{
     axios({
       method: 'post',
-      url: '/api/coffee',
+      url: '/api/coffees',
       data: {coffee}
     }).then(res => {
         const {coffees} = this.state;
@@ -37,7 +26,11 @@ class App extends Component {
 
   }
 
-  deleteCoffee = () => {
+  deleteCoffee = (id) => {
+    axios.delete(`/api/coffees/${id}`).then(() => {
+      const { coffees } = this.state
+      this.setState({coffees: coffees.filter(c => c.id !== id)});
+    });
 
   }
 
@@ -46,7 +39,10 @@ class App extends Component {
       <div>
         <h1>Coffee | Beans | Shop</h1>
         <CoffeeForm createCoffee={this.createCoffee}/>
-        <CoffeeList coffees={this.state.coffees} />
+        <CoffeeList
+          coffees={this.state.coffees}
+          deleteCoffee={this.deleteCoffee}
+          />
       </div>
     );
   }

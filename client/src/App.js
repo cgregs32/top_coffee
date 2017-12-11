@@ -22,8 +22,20 @@ class App extends Component {
     });
   }
 
-  updateCoffee = () =>{
-
+  updateCoffee = (coffee) => {
+    debugger
+    axios({
+      method: 'put',
+      url: `/api/coffees/${coffee.id}`,
+      data: coffee
+    }).then(res => {
+      let coffees = this.state.coffees.map ( c => {
+        if (c.id === coffee.id)
+          return res.data;
+        return c;
+      });
+      this.setState({ coffees });
+    })
   }
 
   deleteCoffee = (id) => {
@@ -42,6 +54,7 @@ class App extends Component {
         <CoffeeList
           coffees={this.state.coffees}
           deleteCoffee={this.deleteCoffee}
+          updateCoffee={this.updateCoffee}
           />
       </div>
     );

@@ -2,7 +2,7 @@ import React from 'react'
 import Coffee from './Coffee'
 import { Grid } from 'semantic-ui-react'
 
-const CoffeeList = ({coffees, deleteCoffee}) => {
+const CoffeeList = ({coffees, deleteCoffee, updateCoffee}) => {
   return (
     <Grid columns='equal'>
       {coffees.map(c =>
@@ -10,6 +10,7 @@ const CoffeeList = ({coffees, deleteCoffee}) => {
           key={c.id}
           {...c}
           deleteCoffee={deleteCoffee}
+          updateCoffee={updateCoffee}
         />
       )}
     </Grid>

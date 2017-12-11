@@ -16,7 +16,7 @@ class Api::CoffeesController < ApplicationController
 
   def update
     if @coffee.update(coffee_params)
-      render json: coffee
+      render json: @coffee
     else
       render json: {errors: coffee.error}, status: 422
     end
